@@ -1,8 +1,11 @@
-import { Inngest } from "inngest";
-import connectDB from "./db";
+import { serve } from "inngest/next";
+import { inngest, syncUserCreation, syncUserDeletion, syncUserUpdation } from "../../../config/inngest";
 
-// Create a client to send and receive events
-export const inngest = new Inngest({ id: "GearUp" });
+export const { GET, POST } = serve({
+  client: inngest,
+  functions: [syncUserCreation, syncUserDeletion, syncUserUpdation],
+});
+
 
 export const syncUserCreation = inngest.createFunction(
     {
